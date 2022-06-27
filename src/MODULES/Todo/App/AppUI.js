@@ -6,7 +6,7 @@ import { TodoList } from '../TodoList';
 import { TodoItem } from '../TodoItem';
 import { TodoForm } from '../TodoForm';
 import { CreateTodoButton } from '../CreateTodoButton';
-import { Modal } from '../../../Modal';
+import { Modal } from '../Modal/index';
 
 function AppUI() {
   const {

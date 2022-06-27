@@ -1,36 +1,21 @@
-// import React from "react";
-// import { BrowserRouter, Routes } from "react-router-dom";
-// import Home from "../App/index"
-
-// //Creamos una función que va a exponer BrowserRouter y los elementos que se tendrán en la construcción de rutas.
-// //Para esta función hacemos un return explicito, añadiendo la lógica entre paréntesis.
-// const App = () => (
-//     <BrowserRouter>
-//         {/* exact: Para que cuando alguien entre a la url principal va a hacer el match con el path que va a recibir y luego se expone un componente. Si es exacta que utilice un componente  */}
-//         <Routes exact path="/" component={Home} />
-//     </BrowserRouter>
-// );
-
-// export default App;
-
 import React from 'react';
 
 import {
   BrowserRouter as Router,
-  //Routes,
   Route,
   Link,
-  // NavLink,
   Switch
 } from "react-router-dom";
 
-import Inicio from '../components/Inicio';
-import Comisiones from '../components/Comisiones';
-import Contacto from '../components/Contacto';
-import Tienda from '../components/Tienda';
-import Footer from '../components/Footer/Footer';
+import Inicio from '../../MODULES/Inicio';
+import Comisiones from '../../MODULES/Comisiones';
+import Contacto from '../../MODULES/Contacto/Contacto';
+import Tienda from '../../MODULES/Tienda';
+import Footer from '../../MODULES/Footer/Footer';
+import Registrar from '../../MODULES/Registrar/Registrar';
 import './routes.css';
-import IconUser from "../img/IconUser.png";
+// import IconUser from "../img/IconUser.png";
+import IconUser from "../../BASE/img/IconUser.png";
 
 function App() {
   return (
@@ -123,7 +108,8 @@ function App() {
                 <button runat="server" className="linkCerrarResponsive claseFuente1">Cerrar Sesión</button>
               </li>
               <li className="nav-item dropdown submenu menuRegistrar" id="navPreRegistro" runat="server">
-                <a id="idMenuPreRegistro" className=" claseFuente1 enlaceRegistrar" href="PreRegistroSocio.aspx">Registrar</a>
+                <Link id="idMenuPreRegistro" className="claseFuente1 enlaceRegistrar" to="/Registrar">Registrar</Link>
+                {/* <a id="idMenuPreRegistro" className=" claseFuente1 enlaceRegistrar" href="PreRegistroSocio.aspx">Registrar</a> */}
               </li>
               {/* <img id="imgNavNotify" src="../img/Notificacion.png" alt="Alternate Text" runat="server" /> */}
               <li className="dropdown submenu navResponsive" id="imgNavNotify" runat="server" style={{ display: "none" }}>
@@ -233,6 +219,9 @@ function App() {
           </Route>
           <Route path="/Tienda">
             <Tienda />
+          </Route>
+          <Route path="/Registrar">
+            <Registrar />
           </Route>
         </Switch>
 
