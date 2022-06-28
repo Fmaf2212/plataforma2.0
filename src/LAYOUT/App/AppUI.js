@@ -1,12 +1,12 @@
 import React from 'react';
-import { TodoContext } from '../TodoContext';
-import { TodoCounter } from '../TodoCounter';
-import { TodoSearch } from '../TodoSearch';
-import { TodoList } from '../TodoList';
-import { TodoItem } from '../TodoItem';
-import { TodoForm } from '../TodoForm';
-import { CreateTodoButton } from '../CreateTodoButton';
-import { Modal } from '../../../Modal';
+import { TodoContext } from '../../MODULES/Todo/TodoContext';
+import { TodoCounter } from '../MODULES/Todo/TodoCounter';
+import { TodoSearch } from '../MODULES/Todo/TodoSearch';
+import { TodoList } from '../MODULES/Todo/TodoList';
+import { TodoItem } from '../MODULES/Todo/TodoItem';
+import { TodoForm } from '../MODULES/Todo/TodoForm';
+import { CreateTodoButton } from '../MODULES/Todo/CreateTodoButton';
+import { Modal } from '../../MODULES/Todo/Modal';
 
 function AppUI() {
   const {

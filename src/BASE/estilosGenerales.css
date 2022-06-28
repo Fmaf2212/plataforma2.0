@@ -1,0 +1,33 @@
+:root {
+    /*Primary*/
+    --Darkest-primary: #03164C;
+    --Dark-primary: #1B2C5E;
+    --Medium-primary: #153285;
+    --Light-primary: #6884D3;
+    --Lightest-primary: #AFBEE7;
+    --Darkest2-primary: #FE8538;
+    --Dark2-primary: #FFA56C;
+    /*Secundary*/
+    --Darkest-secundary: #4F9CD3;
+    --Dark-secundary: #B1ECFF;
+    --Medium-secundary: #D8F5FF;
+    --Light-secundary: #E5F8FF;
+    --Lightest-secundary: #F1FBFF;
+    /*Grises*/
+    --Darkest-grises: #000000;
+    --Dark-grises: #6D6D6D;
+    --Medium-grises: #C4C4C4;
+    --Light-grises: #E9E9E9;
+    --Light2-grises: #F4F4F4;
+    --Lightest-grises: #FFFFFF;
+    /*Success*/
+    --Medium-success: #008C27;
+    /*Error*/
+    --Medium-error: #EA2325;
+    --Light-error: #F6A7A7;
+    --Font-type: system-ui;
+    --anchoHeaderResponsive: calc(100vw - 14%);
+    --anchoHeaderResponsiveTablet: calc(100vw - 62%);
+    /*Table*/
+    --encabezado-tabla-modal: #3F3F3F;
+}
