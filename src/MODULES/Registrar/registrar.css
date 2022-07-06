@@ -408,6 +408,17 @@ button:focus {
   border-radius: 50%;
   width: 187px;
   height: 186px;
+  position: relative;
+}
+
+.formulario .formulario__photo .imagePreview {
+  /* background-image: url('../../BASE/img/usuario-azul.png'); */
+  background-size: cover;    
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .formulario .formulario__crearUsuario {
@@ -418,12 +429,41 @@ button:focus {
   margin-bottom: 18px;
 }
 
-.formulario .formulario__crearCrearContraseña .ojito1,
-.formulario .formulario__confirmarContraseña .ojito2 {
+.formulario .formulario__crearCrearContraseña .formulario__grupo-input,
+.formulario .formulario__confirmarContraseña .formulario__grupo-input{
+  position: relative;
+}
+
+.formulario .formulario__crearCrearContraseña .formulario__grupo-input .ojito1,
+.formulario .formulario__confirmarContraseña .formulario__grupo-input .ojito2 {
   position: absolute;
   right: 20px;
-  bottom: 12px;
+  bottom: 32px;
   cursor: pointer;
+}
+
+.sombraOjoContraseña{
+  filter: drop-shadow(0px 0px 10px blue);
+}
+.quitarSombraOjoContraseña{
+  filter: none;
+}
+
+.formulario .formulario__confirmarContraseña .formulario__input-error-activo {
+  display: flex;
+  font-size: 14px;
+  color: #A01C1C;
+  font-weight: 500;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 5px;
+  width: 270px;
+  margin-top: 10px;
+  line-height: 1.2;
+}
+.formulario .formulario__confirmarContraseña .formulario__input-error {
+  margin-bottom: 0;
+  display: none;
 }
 
 .imgAddPhoto {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './registrar.css'
-import './script.js'
+import PhotoProfile from './Components/PhotoProfile'
+import ConfirmarContraseña from './Components/ConfirmarContraseña'
 
 const Registrar = () => {
   const [show, setShow] = useState(false)
@@ -10,6 +11,63 @@ const Registrar = () => {
   //   const [showBolivia, setShowBolivia] = useState(false)
   //   const [showEEUU, setShowEEUU] = useState(false)
   //   const [showPeru, setShowPeru] = useState(false)
+  const [departamento, setDepartamento] = useState([])
+  // const [idPais, setIdPais] = useState('')
+
+  //La llamada a useEffect acepta una función como argumento.
+  //Esta función se ejecuta por defecto cuando el componente se renderiza por primera vez, y después cada vez que el componente se actualice.
+  // React.useEffect(() => {
+  //    //obtenerDatos('01')
+  //   // mostrarSelectDepartamentoXPais()
+  // }, [])
+
+  async function mostrarSelectDepartamentoXPais(idPais) {
+    if (idPais === '02') {
+      // setIdPais('02')
+      // console.log('entré en showBolivia:true')
+    }
+    // console.log(showEEUU)
+    if (idPais === '08') {
+      // setIdPais('08')
+      // console.log('entré en showEEUU:true')
+    }
+    // console.log(showPeru)
+    if (idPais === '01') {
+      // setIdPais('01')
+      // console.log('entré en showPeru:true')
+    }
+    // console.log(idPais)
+    await obtenerDatos(idPais)
+    // console.log(`idPais: ${typeof idPais}`)
+  }
+
+  const obtenerDatos = async (idPa) => {
+    // let idPais = "";
+    // console.log(idPa)
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pais: idPa }),
+    }
+    // console.log(requestOptions)
+    const x = await fetch(
+      'https://prueba3.mundosantanatura.com/autocompletado.asmx/GetDepartamentosByPais',
+      requestOptions,
+    )
+      .then((response) => response.json()) //Devuelve una promesa que se resuelve con el resultado de analizar el texto del cuerpo como JSON.
+      .then((data) => {
+        return data
+      })
+    const dep = await x
+    await setDepartamento(dep.d)
+  }
+
+  // const obtenerDatos = async () => {
+  //   const data = await fetch('https://jsonplaceholder.typicode.com/users')
+  //   const users = await data.json()
+  //   setDepartamento(users)
+  // }
 
   return (
     <div style={{ margin: '70px auto 0', maxWidth: '1440px' }}>
@@ -31,8 +89,9 @@ const Registrar = () => {
                 <button
                   className="quitarEstilosButton bandera banderaBolivia"
                   onClick={() => {
-                    setShow(!show);
-                    setShowBolivia(!showBolivia);
+                    setShow(!show)
+                    setShowBolivia(!showBolivia)
+                    mostrarSelectDepartamentoXPais('02')
                   }}
                 ></button>
                 <label>BOLIVIA</label>
@@ -46,8 +105,9 @@ const Registrar = () => {
                 <button
                   className="quitarEstilosButton bandera banderaEEUU"
                   onClick={() => {
-                    setShow(!show);
-                    setShowEEUU(!showEEUU);
+                    setShow(!show)
+                    setShowEEUU(!showEEUU)
+                    mostrarSelectDepartamentoXPais('08')
                   }}
                 ></button>
                 <label>ESTADOS UNIDOS</label>
@@ -61,8 +121,9 @@ const Registrar = () => {
                 <button
                   className="quitarEstilosButton bandera banderaPeru"
                   onClick={() => {
-                    setShow(!show);
-                    setShowPeru(!showPeru);
+                    setShow(!show)
+                    setShowPeru(!showPeru)
+                    mostrarSelectDepartamentoXPais('01')
                   }}
                 ></button>
                 <label>PERÚ</label>
@@ -77,12 +138,11 @@ const Registrar = () => {
           <button
             className="quitarEstilosButton form-group scrollflow -pop -opacity preRegistroSocio__bloqueTitulo"
             onClick={() => {
-                    setShow(!show);
-                    setShowBolivia(false);
-                    setShowEEUU(false);
-                    setShowPeru(false);
-                }
-            }
+              setShow(!show)
+              setShowBolivia(false)
+              setShowEEUU(false)
+              setShowPeru(false)
+            }}
           >
             <i
               id="regresarBanderas"
@@ -92,47 +152,12 @@ const Registrar = () => {
             </i>
             <p>REGISTRO DE UN NUEVO EMPRESARIO</p>
           </button>
-
           <div className="preRegistroSocio__bloqueCrearCuenta">
             <label>Crear cuenta</label>
 
             <div id="formulario" className="formulario">
-              <div className="scrollflow -opacity formulario__photo">
-                {/* <label>Mi foto de perfil</label>
-                        <div id="imagePreview" className="center-block align-content-center">
-                            <img src="img/usuario1.png" className="img-fluid" />
-                        </div> */}
-                <div
-                  id="imagePreview"
-                  style={{
-                    backgroundImage: 'url(img/usuario-azul.png)',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '50%',
-                  }}
-                ></div>
-                {/* <img style="" width="186" src="img/usuario-azul.png" className="" /> */}
-                <input
-                  className="inputAddPhoto"
-                  type={'file'}
-                  id="imageUpload"
-                  accept=".png, .jpg, .jpeg"
-                />
-                <label htmlFor="imageUpload">
-                  <img className="imgAddPhoto" src="img/add-photo.png" alt="" />
-                </label>
+              <PhotoProfile />
 
-                {/* <asp:FileUpload CssclassName="form-control imagen" ID="fileUpload1" runat="server" /> */}
-              </div>
-              {/* <div className="form-group col-md-4 scrollflow -opacity" id="btnCargaImagen" runat="server">
-                        <label className="label" style="font-weight: bold">Foto de Perfil</label>
-                        <label className="file-upload btn btn-success form-control marginTop" style="font-size: 15px">
-                            Ingresa tu foto
-                                    <asp:FileUpload CssclassName="form-control imagen" ID="fileUpload" runat="server" />
-                        </label>
-                    </div> */}
               <div className="scrollflow -opacity formulario__crearUsuario">
                 <label className="labelPreRegistro">Crear usuario</label>
                 <input
@@ -143,95 +168,10 @@ const Registrar = () => {
                   className="form-controlPreRegistro marginTop"
                 ></input>
               </div>
-
-              <div
-                className="formulario__grupo formulario__crearCrearContraseña"
-                id="grupo__password"
-              >
-                <label
-                  htmlFor="password"
-                  className="labelPreRegistro formulario__label"
-                >
-                  Crear contraseña
-                </label>
-                <div className="formulario__grupo-input">
-                  <input
-                    type={'password'}
-                    className="form-controlPreRegistro marginTop formulario__input"
-                    name="password"
-                    id="password"
-                    maxLength="12"
-                    autoComplete="new-password"
-                  />
-                  {/* <input ID="password" runat="server" CssclassName="form-controlPreRegistro text-uppercase marginTop formulario__input" MaxLength="12" TextMode="Password"></input> */}
-                  <img
-                    id="ojito1"
-                    className="ojito1"
-                    //   onClick="mostrarContrasena()"
-                    src="img/ojito.png"
-                    alt=""
-                  />
-                  <i className="formulario__validacion-estado fas fa-times-circle"></i>
-                </div>
-              </div>
-              <div
-                className="formulario__grupo formulario__confirmarContraseña"
-                id="grupo__password2"
-              >
-                <label
-                  htmlFor="password2"
-                  className="labelPreRegistro formulario__label"
-                >
-                  Confirmar contraseña
-                </label>
-                <div className="formulario__grupo-input">
-                  <input
-                    type={'password'}
-                    className="form-controlPreRegistro marginTop formulario__input"
-                    name="password2"
-                    id="password2"
-                  />
-                  <img
-                    id="ojito2"
-                    className="ojito2"
-                    //   onClick="mostrarContrasena2()"
-                    src="img/ojito.png"
-                    alt=""
-                  />
-                  <i className="formulario__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <span className="formulario__input-error">
-                  <img
-                    width="12"
-                    src="img/aviso-error.png"
-                    alt="Alternate Text"
-                  />
-                  Las contraseñas no coinciden. Inténtalo nuevamente.
-                </span>
-              </div>
-
-              {/* <div id="grupo__password" className="scrollflow -opacity " style="margin-bottom: 18px;">
-                        <label className="labelPreRegistro formulario__label">Crear contraseña</label>
-                        <div className="formulario__grupo-input">
-                            <input ID="TxtCl" runat="server" CssclassName="form-controlPreRegistro text-uppercase marginTop formulario__input" MaxLength="12" TextMode="Password"></input>
-                            <i className="formulario__validacion-estado fas fa-times-circle"></i>
-                        </div>
-                        <img id="ojito1" style="position: absolute; right: 20px; top: 40px; cursor: pointer;" onclick="mostrarContrasena()"
-                            src="img/ojito.png" alt="" />
-                    </div>
-                    <div id="grupo__password3" className="scrollflow -opacity">
-                        <label className="labelPreRegistro">Confirmar contraseña</label>
-                        <div className="formulario__grupo-input">
-                            <input ID="TxtCl2" runat="server" CssclassName="form-controlPreRegistro text-uppercase marginTop formulario__input" MaxLength="12" TextMode="Password"></input>
-                            <i className="formulario__validacion-estado fas fa-times-circle"></i>
-                            <img id="ojito2" style="position: absolute; right: 20px; top: 40px; cursor: pointer;" onclick="mostrarContrasena2()"
-                                src="img/ojito.png" alt="" />
-                        </div>
-                        <span className="formulario__input-error mensajeContraseñasNoCoinciden">
-                            <img width="12" src="img/aviso-error.png" alt="Alternate Text" />Las contraseñas no coinciden. Inténtalo nuevamente.</span>
-                    </div> */}
+              <ConfirmarContraseña />
             </div>
           </div>
+
           <div className="row justify-content-md-center preRegistroSocio__bloqueFormulario">
             {/* REGISTRO AFILIACION */}
             <div id="MostrarRegistroCliente">
@@ -377,7 +317,11 @@ const Registrar = () => {
                           className="select form-controlPreRegistro text-uppercase"
                         >
                           <option value="0">Seleccione</option>
-                          {(showBolivia)? (<option value="1">CÉDULA</option>): (<option value="1">DOCUMENTO DE IDENTIDAD</option>)}
+                          {showBolivia ? (
+                            <option value="1">CÉDULA</option>
+                          ) : (
+                            <option value="1">DOCUMENTO DE IDENTIDAD</option>
+                          )}
                           <option value="2">PASAPORTE</option>
                         </select>
                         {/* <select ID="ComboTipoDocumento" runat="server" CssclassName="form-controlPreRegistro text-uppercase">
@@ -472,19 +416,29 @@ const Registrar = () => {
                       </div>
                       <div className="scrollflow -opacity">
                         <label className="labelPreRegistro" id="lblEstado">
-                          {showBolivia || showPeru ? ('Departamento') : 'Estado'}
+                          {showBolivia || showPeru ? 'Departamento' : 'Estado'}
                         </label>
                         <select
                           runat="server"
                           id="cboDepartamento"
                           className="select form-controlPreRegistro text-uppercase"
-                        ></select>
+                        >
+                          <option value="0">Select ...</option>
+                          {departamento.map((departamentos) => (
+                            <option
+                              key={departamentos.Codigo}
+                              value={departamentos.Codigo}
+                            >
+                              {departamentos.Nombre}
+                            </option>
+                          ))}
+                        </select>
                         {/* <select ID="cboDepartamento" runat="server" CssclassName="form-controlPreRegistro text-uppercase" /> */}
                       </div>
 
                       <div className="scrollflow -opacity">
                         <label className="labelPreRegistro" id="lblCondado">
-                        {showBolivia || showPeru ? ('Provincia') : 'Condado'}
+                          {showBolivia || showPeru ? 'Provincia' : 'Condado'}
                         </label>
                         <select
                           runat="server"
@@ -498,21 +452,22 @@ const Registrar = () => {
                         /> */}
                       </div>
                       {!showEEUU ? (
-                      <div className="scrollflow -opacity" id="dvDistrito">
-                        <label className="labelPreRegistro" id="lblDistrito">
-                        {showBolivia ? ('Municipio') : 'Distrito'}
-                        </label>
-                        <select
-                          runat="server"
-                          id="cboDistrito"
-                          className="select form-controlPreRegistro text-uppercase"
-                        ></select>
-                        {/* <select
+                        <div className="scrollflow -opacity" id="dvDistrito">
+                          <label className="labelPreRegistro" id="lblDistrito">
+                            {showBolivia ? 'Municipio' : 'Distrito'}
+                          </label>
+                          <select
+                            runat="server"
+                            id="cboDistrito"
+                            className="select form-controlPreRegistro text-uppercase"
+                          ></select>
+                          {/* <select
                           id="cboDistrito"
                           runat="server"
                           className="form-controlPreRegistro text-uppercase"
                         /> */}
-                      </div>):null}
+                        </div>
+                      ) : null}
                       {!((!showBolivia || !showEEUU) && !showPeru) ? (
                         <div className="scrollflow -opacity" id="blogCdrPremio">
                           <label className="labelPreRegistro">
@@ -548,7 +503,7 @@ const Registrar = () => {
                           className="form-controlPreRegistro text-uppercase "
                         ></input>
                       </div>
-                      {((showBolivia && showPeru) || showEEUU) ? (
+                      {(showBolivia && showPeru) || showEEUU ? (
                         <div className="scrollflow -opacity" id="bloqPostal">
                           <label className="labelPreRegistro">
                             ** Código Postal
