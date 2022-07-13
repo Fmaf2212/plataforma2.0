@@ -3,6 +3,14 @@ import './registrar.css'
 import PhotoProfile from './Components/PhotoProfile'
 import ConfirmarContraseña from './Components/ConfirmarContraseña'
 
+// react-datepicker
+import DatePicker, {registerLocale} from "react-datepicker";
+import { getMonth, getYear } from 'date-fns';
+import range from 'lodash/range';
+import './react-datepicker.css';
+import es from 'date-fns/locale/es'
+registerLocale("es", es)
+
 const Registrar = () => {
   const [show, setShow] = useState(false)
   const [showBolivia, setShowBolivia] = useState(false)
@@ -12,6 +20,11 @@ const Registrar = () => {
   //   const [showEEUU, setShowEEUU] = useState(false)
   //   const [showPeru, setShowPeru] = useState(false)
   const [departamento, setDepartamento] = useState([])
+  const [provincia, setProvincia] = useState([])
+  const [distrito, setDistrito] = useState([])
+  const [cdr, setCDR] = useState([])
+  // const [fecha, setFecha] = useState(new Date('2018', '06', '22'))
+
   // const [idPais, setIdPais] = useState('')
 
   //La llamada a useEffect acepta una función como argumento.
@@ -22,26 +35,38 @@ const Registrar = () => {
   // }, [])
 
   async function mostrarSelectDepartamentoXPais(idPais) {
-    if (idPais === '02') {
-      // setIdPais('02')
-      // console.log('entré en showBolivia:true')
-    }
-    // console.log(showEEUU)
-    if (idPais === '08') {
-      // setIdPais('08')
-      // console.log('entré en showEEUU:true')
-    }
-    // console.log(showPeru)
-    if (idPais === '01') {
-      // setIdPais('01')
-      // console.log('entré en showPeru:true')
-    }
+    // if (idPais === '02') {
+    //   // setIdPais('02')
+    //   // console.log('entré en showBolivia:true')
+    // }
+    // // console.log(showEEUU)
+    // if (idPais === '08') {
+    //   // setIdPais('08')
+    //   // console.log('entré en showEEUU:true')
+    // }
+    // // console.log(showPeru)
+    // if (idPais === '01') {
+    //   // setIdPais('01')
+    //   // console.log('entré en showPeru:true')
+    // }
     // console.log(idPais)
-    await obtenerDatos(idPais)
+    await obtenerDatosDepartamento(idPais)
     // console.log(`idPais: ${typeof idPais}`)
   }
 
-  const obtenerDatos = async (idPa) => {
+  // const url  = 'https://apimocha.com/departamento/posts'
+  // const [departamentos2, setDepartamentos2] = useState()
+  // const fetchApi = async () => {
+  //   const response = await fetch(url)
+  //   const responseJSON = await response.json()
+  //   console.log(responseJSON)
+  //   setDepartamentos2(responseJSON)
+  // }
+  // useEffect(() => {
+  //   fetchApi()
+  // }, []);
+
+  const obtenerDatosDepartamento = async (idPa) => {
     // let idPais = "";
     // console.log(idPa)
 
@@ -63,11 +88,82 @@ const Registrar = () => {
     await setDepartamento(dep.d)
   }
 
-  // const obtenerDatos = async () => {
-  //   const data = await fetch('https://jsonplaceholder.typicode.com/users')
-  //   const users = await data.json()
-  //   setDepartamento(users)
-  // }
+  const obtenerDatosProvincia = async (idDep) => {
+    setDistrito([])
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ departamento: idDep }),
+    }
+    // console.log(requestOptions)
+    const x = await fetch(
+      'https://prueba3.mundosantanatura.com/autocompletado.asmx/GetProvinciaByDepartamento',
+      requestOptions,
+    )
+      .then((response) => response.json()) //Devuelve una promesa que se resuelve con el resultado de analizar el texto del cuerpo como JSON.
+      .then((data) => {
+        return data
+      })
+    const provincia = await x
+    await setProvincia(provincia.d)
+  }
+
+  const obtenerDatosDistrito = async (idProv) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ provincia: idProv }),
+    }
+    // console.log(requestOptions)
+    const x = await fetch(
+      'https://prueba3.mundosantanatura.com/autocompletado.asmx/GetDistritoByProvincia',
+      requestOptions,
+    )
+      .then((response) => response.json()) //Devuelve una promesa que se resuelve con el resultado de analizar el texto del cuerpo como JSON.
+      .then((data) => {
+        return data
+      })
+    const distrito = await x
+    await setDistrito(distrito.d)
+  }
+  const obtenerDatosCDR = async () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    }
+    // console.log(requestOptions)
+    const x = await fetch(
+      'https://prueba3.mundosantanatura.com/autocompletado.asmx/LlenarEstablecimiento',
+      requestOptions,
+    )
+      .then((response) => response.json()) //Devuelve una promesa que se resuelve con el resultado de analizar el texto del cuerpo como JSON.
+      .then((data) => {
+        console.log(data)
+        return data
+      })
+    const cdr = await x
+    await setCDR(cdr.d)
+  }
+
+  const [startDate, setStartDate] = useState(new Date())
+  const years = range(1990, getYear(new Date()) + 1, 1)
+  // var start = new Date();
+  // const years = range(1990, start.getFullYear() + 1, 1)
+  const months = [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Setiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
+  ]
 
   return (
     <div style={{ margin: '70px auto 0', maxWidth: '1440px' }}>
@@ -92,6 +188,7 @@ const Registrar = () => {
                     setShow(!show)
                     setShowBolivia(!showBolivia)
                     mostrarSelectDepartamentoXPais('02')
+                    obtenerDatosCDR()
                   }}
                 ></button>
                 <label>BOLIVIA</label>
@@ -108,6 +205,7 @@ const Registrar = () => {
                     setShow(!show)
                     setShowEEUU(!showEEUU)
                     mostrarSelectDepartamentoXPais('08')
+                    obtenerDatosCDR()
                   }}
                 ></button>
                 <label>ESTADOS UNIDOS</label>
@@ -124,6 +222,7 @@ const Registrar = () => {
                     setShow(!show)
                     setShowPeru(!showPeru)
                     mostrarSelectDepartamentoXPais('01')
+                    obtenerDatosCDR()
                   }}
                 ></button>
                 <label>PERÚ</label>
@@ -135,23 +234,21 @@ const Registrar = () => {
 
       {show ? (
         <div id="ContenidoFluido" className="preRegistroSocio toggle-content">
-          <button
-            className="quitarEstilosButton form-group scrollflow -pop -opacity preRegistroSocio__bloqueTitulo"
-            onClick={() => {
-              setShow(!show)
-              setShowBolivia(false)
-              setShowEEUU(false)
-              setShowPeru(false)
-            }}
-          >
+          <div className="form-group scrollflow -pop -opacity preRegistroSocio__bloqueTitulo">
             <i
               id="regresarBanderas"
               className="fas fa-arrow-left regresarBanderas"
+              onClick={() => {
+                setShow(!show)
+                setShowBolivia(false)
+                setShowEEUU(false)
+                setShowPeru(false)
+              }}
             >
               <span>Regresar</span>
             </i>
             <p>REGISTRO DE UN NUEVO EMPRESARIO</p>
-          </button>
+          </div>
           <div className="preRegistroSocio__bloqueCrearCuenta">
             <label>Crear cuenta</label>
 
@@ -345,12 +442,77 @@ const Registrar = () => {
                         <label className="labelPreRegistro">
                           Fecha de nacimiento
                         </label>
-                        <input
+                        {/* <input
                           type={'text'}
                           id="datepicker"
                           className="form-controlPreRegistro text-uppercase inputDatepicker"
                           readOnly
                           runat="server"
+                        /> */}
+                        <DatePicker
+                          className='form-controlPreRegistro'
+                          renderCustomHeader={({
+                            date,
+                            changeYear,
+                            changeMonth,
+                            decreaseMonth,
+                            increaseMonth,
+                            prevMonthButtonDisabled,
+                            nextMonthButtonDisabled,
+                          }) => (
+                            <div
+                              style={{
+                                margin: 10,
+                                display: 'flex',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <button
+                                onClick={decreaseMonth}
+                                disabled={prevMonthButtonDisabled}
+                              >
+                                {'<'}
+                              </button>
+                              <select
+                                // var start = new Date()
+                                // const years = Range(1990, start.getFullYear() + 1, 1)
+                                value={getYear(date)}
+                                onChange={({ target: { value } }) =>
+                                  changeYear(value)
+                                }
+                              >
+                                {years.map((option) => (
+                                  <option key={option} value={option}>
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+
+                              <select
+                                value={months[getMonth(date)]}
+                                onChange={({ target: { value } }) =>
+                                  changeMonth(months.indexOf(value))
+                                }
+                              >
+                                {months.map((option) => (
+                                  <option key={option} value={option}>
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+
+                              <button
+                                onClick={increaseMonth}
+                                disabled={nextMonthButtonDisabled}
+                              >
+                                {'>'}
+                              </button>
+                            </div>
+                          )}
+                          selected={startDate}
+                          onChange={(date) => setStartDate(date)}
+                          locale="es"
+                          dateFormat="dd/MM/yyyy"
                         />
                       </div>
                     </div>
@@ -418,12 +580,23 @@ const Registrar = () => {
                         <label className="labelPreRegistro" id="lblEstado">
                           {showBolivia || showPeru ? 'Departamento' : 'Estado'}
                         </label>
+                        {/* <ul>
+                          {
+                            !departamentos ? 'Cargando...' :
+                            departamentos.map((departamento, index) => {
+                              return <li key={index}>{departamento.Nombre}</li>
+                            })
+                          }
+                        </ul> */}
                         <select
                           runat="server"
                           id="cboDepartamento"
                           className="select form-controlPreRegistro text-uppercase"
+                          onChange={(e) =>
+                            obtenerDatosProvincia(e.target.value)
+                          }
                         >
-                          <option value="0">Select ...</option>
+                          <option value="0">Seleccione</option>
                           {departamento.map((departamentos) => (
                             <option
                               key={departamentos.Codigo}
@@ -444,7 +617,15 @@ const Registrar = () => {
                           runat="server"
                           id="cboProvincia"
                           className="select form-controlPreRegistro text-uppercase"
-                        ></select>
+                          onChange={(e) => obtenerDatosDistrito(e.target.value)}
+                        >
+                          <option value="0">Seleccione</option>
+                          {provincia.map((provi) => (
+                            <option key={provi.Codigo} value={provi.Codigo}>
+                              {provi.Nombre}
+                            </option>
+                          ))}
+                        </select>
                         {/* <select
                           id="cboProvincia"
                           runat="server"
@@ -460,7 +641,14 @@ const Registrar = () => {
                             runat="server"
                             id="cboDistrito"
                             className="select form-controlPreRegistro text-uppercase"
-                          ></select>
+                          >
+                            <option value="0">Seleccione</option>
+                            {distrito.map((distri) => (
+                              <option key={distri.Codigo} value={distri.Codigo}>
+                                {distri.Nombre}
+                              </option>
+                            ))}
+                          </select>
                           {/* <select
                           id="cboDistrito"
                           runat="server"
@@ -477,7 +665,15 @@ const Registrar = () => {
                             runat="server"
                             id="cboPremio"
                             className="select form-controlPreRegistro text-uppercase"
-                          ></select>
+                          >
+                            obtenerDatosCDR
+                            <option value="0">Seleccione</option>
+                            {cdr.map((c) => (
+                              <option key={c.IdPeruShop} value={c.IdPeruShop}>
+                                {c.apodo}
+                              </option>
+                            ))}
+                          </select>
                           {/* <select
                           id="cboPremio"
                           runat="server"

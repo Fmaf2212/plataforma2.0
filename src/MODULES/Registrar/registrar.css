@@ -136,7 +136,7 @@
   border-radius: 7px;
   padding: 19px 18px 22px;
   margin-bottom: 31px;
-  box-shadow: 0px 4px 4px rgb(104 132 211 / 25%);    
+  box-shadow: 0px 4px 4px rgb(104 132 211 / 25%);
   display: flex;
   flex-direction: column;
 }
@@ -233,6 +233,7 @@
 .btnRegistrar {
   width: 221px;
   height: 56px;
+  cursor: pointer;
 }
 
 .seleccionPais {
@@ -337,13 +338,18 @@
   font-size: 16px;
   color: #2d4a9d;
   margin-bottom: 0.5rem;
-  display: flex;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 .form-controlPreRegistro {
   display: block;
   height: 50px;
   width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   padding: 0.375rem 2.15rem;
   font-size: 15px;
   line-height: 1.5;
@@ -352,7 +358,7 @@
   background: #f1fbff;
   box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
-  background-clip: padding-box;
+  background-clip: padding-box; /* Define hasta dónde debe extenderse el fondo (color o imagen) dentro de un elemento. background-clip: border-box/padding-box/content-box */
   border: none;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -413,7 +419,7 @@ button:focus {
 
 .formulario .formulario__photo .imagePreview {
   /* background-image: url('../../BASE/img/usuario-azul.png'); */
-  background-size: cover;    
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
@@ -430,7 +436,7 @@ button:focus {
 }
 
 .formulario .formulario__crearCrearContraseña .formulario__grupo-input,
-.formulario .formulario__confirmarContraseña .formulario__grupo-input{
+.formulario .formulario__confirmarContraseña .formulario__grupo-input {
   position: relative;
 }
 
@@ -438,26 +444,26 @@ button:focus {
 .formulario .formulario__confirmarContraseña .formulario__grupo-input .ojito2 {
   position: absolute;
   right: 20px;
-  bottom: 32px;
+  bottom: 12px;
   cursor: pointer;
 }
 
-.sombraOjoContraseña{
+.sombraOjoContraseña {
   filter: drop-shadow(0px 0px 10px blue);
 }
-.quitarSombraOjoContraseña{
+.quitarSombraOjoContraseña {
   filter: none;
 }
 
 .formulario .formulario__confirmarContraseña .formulario__input-error-activo {
   display: flex;
   font-size: 14px;
-  color: #A01C1C;
+  color: #a01c1c;
   font-weight: 500;
   flex-direction: row;
   align-items: flex-start;
   gap: 5px;
-  width: 270px;
+  width: 240px;
   margin-top: 10px;
   line-height: 1.2;
 }
@@ -649,7 +655,7 @@ button:focus {
   .form-controlPreRegistro {
     height: calc(3rem + 2px);
     width: 100%;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .formulario .formulario__photo {
@@ -669,8 +675,14 @@ button:focus {
     margin: auto;
   }
 
-  .formulario .formulario__crearCrearContraseña .ojito1,
-  .formulario .formulario__confirmarContraseña .ojito2 {
+  .formulario
+    .formulario__crearCrearContraseña
+    .formulario__grupo-input
+    .ojito1,
+  .formulario
+    .formulario__confirmarContraseña
+    .formulario__grupo-input
+    .ojito2 {
     right: 6px;
     bottom: 3px;
   }
@@ -683,7 +695,7 @@ button:focus {
     width: 217px;
   }
 
-  .formulario__validacion-estado {
+  .formulario__grupo-correcto .formulario__validacion-estado {
     bottom: 7px;
   }
 
@@ -792,6 +804,9 @@ button:focus {
   .preRegistroSocio__bloqueFormulario {
     grid-column: 1 / span 10;
   }
+  .preRegistroSocio__bloqueFormulario .scrollflow {
+    width: calc((100% - 36px) / 3);
+  }
 
   .preRegistroSocio__bloqueCrearCuenta {
     grid-column: 11/ -1;
@@ -813,9 +828,10 @@ button:focus {
     margin-bottom: 20px !important;
   }
   .form-controlPreRegistro {
-    height: calc(4rem);
+    height: calc(2.5rem);
     width: 100%;
-    font-size: 12px;
+    font-size: 10px;
+    padding: 6px 20px 6px 10px;
   }
 
   .btnCancelar,
@@ -889,8 +905,8 @@ button:focus {
   .bloqueDatosPersonales .bloqueDatosPersonales__body,
   .bloqueInfoContacto .bloqueInfoContacto__body,
   .bloqueInfoResidencia .bloqueInfoResidencia__body {
-    justify-content: flex-start;
-    grid-column-gap: 35px;
+    justify-content: space-between;
+    grid-column-gap: 0;
   }
 
   .bloqueInfoAfiliacion,
@@ -904,6 +920,15 @@ button:focus {
   .formulario__input-error-activo {
     width: 152px;
     font-size: 10px;
+  }
+  .formulario .formulario__confirmarContraseña .formulario__input-error-activo {
+    width: 100%;
+    font-size: 10px;
+  }
+    
+  .formulario__grupo-correcto .formulario__validacion-estado {
+    bottom: 4px;
+    font-size: 12px;
   }
 
   .select {
@@ -986,7 +1011,7 @@ button:focus {
 
 /*PARA DIMENSION 660px, incluye Surface Duo 540px*/
 @media screen and (max-width: 660px) {
-  /*SECCION BANDERAS*/
+  /*SECCION FORMULARIO preRegistroSocio*/
   .preRegistroSocio {
     padding: 0 40px;
     grid-template-rows: none;
@@ -1074,7 +1099,7 @@ button:focus {
   .formulario {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: none;
     margin-top: -10px;
   }
 
@@ -1104,6 +1129,17 @@ button:focus {
     bottom: calc(50% - 10px);
     width: 20px;
   }
+  .formulario
+    .formulario__crearCrearContraseña
+    .formulario__grupo-input
+    .ojito1,
+  .formulario
+    .formulario__confirmarContraseña
+    .formulario__grupo-input
+    .ojito2 {
+    right: 6px;
+    bottom: 6px;
+  }
 
   .formulario__crearUsuario > label,
   .formulario__crearCrearContraseña > label,
@@ -1118,7 +1154,7 @@ button:focus {
   .bloqueDatosPersonales .bloqueDatosPersonales__body,
   .bloqueInfoContacto .bloqueInfoContacto__body,
   .bloqueInfoResidencia .bloqueInfoResidencia__body {
-    justify-content: flex-start;
+    justify-content: space-between;
   }
   .bloqueInfoAfiliacion__body,
   .bloqueDatosPersonales__body,
@@ -1158,7 +1194,7 @@ button:focus {
     width: 100%;
     font-size: 12px;
   }
-  .formulario__validacion-estado {
+  .formulario__grupo-correcto .formulario__validacion-estado {
     bottom: 5px;
   }
   .labelPreRegistro {
@@ -1291,10 +1327,10 @@ button:focus {
     bottom: 6px;
   }
 
-  .formulario__validacion-estado {
+  .formulario__grupo-correcto .formulario__validacion-estado {
     right: -17px;
-    bottom: 4px;
-    font-size: 14px;
+    bottom: 7.5px;
+    font-size: 12px;
   }
 
   .formulario__input-error-activo {
@@ -1469,6 +1505,7 @@ button:focus {
 
   .form-controlPreRegistro {
     width: 100%;
+    font-size: 11px;
   }
 
   .bloqueInfoAfiliacion,
@@ -1636,4 +1673,145 @@ button:focus {
     top: 7px !important;
     left: 7px !important;
   }
+}
+
+/* Formulario Registro Validaciones */
+
+/*PARA LAS VALIDACIONES DE LAS CAJAS DE TEXTO*/
+
+.formulario__grupo-input {
+  position: relative;
+}
+
+.formulario__input-error {
+  margin-bottom: 0;
+  display: none;
+}
+
+.formulario__input-error-activo {
+  display: flex;
+  font-size: 14px;
+  color: #a01c1c;
+  font-weight: 500;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 5px;
+  width: 270px;
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
+.formulario__validacion-estado {
+  position: absolute;
+  right: -20px;
+  bottom: 12px;
+  z-index: 100;
+  font-size: 16px;
+  opacity: 0;
+  font-style: normal;
+}
+
+.formulario__checkbox {
+  margin-right: 10px;
+}
+
+.formulario__grupo-terminos,
+.formulario__mensaje,
+.formulario__grupo-btn-enviar {
+  grid-column: span 2;
+}
+
+.formulario__mensaje {
+  height: 45px;
+  line-height: 45px;
+  background: #f66060;
+  padding: 0 15px;
+  border-radius: 3px;
+  display: none;
+}
+
+.formulario__mensaje-activo {
+  display: block;
+}
+
+.formulario__grupo-btn-enviar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formulario__btn {
+  height: 45px;
+  line-height: 45px;
+  width: 30%;
+  background: #000;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.1s ease all;
+}
+
+.formulario__btn:hover {
+  box-shadow: 3px 0px 30px rgba(163, 163, 163, 1);
+}
+
+.formulario__mensaje-exito {
+  font-size: 14px;
+  color: #119200;
+  display: none;
+}
+
+.formulario__mensaje-exito-activo {
+  display: block;
+}
+
+/* ----- -----  Estilos para Validacion ----- ----- */
+.formulario__grupo-correcto .formulario__validacion-estado {
+  color: #1ed12d;
+  opacity: 1;
+}
+/* 
+.formulario__grupo-incorrecto .formulario__label {
+  color: #bb2929;
+} */
+
+.formulario__grupo-incorrecto .formulario__input {
+  border: 2px solid #bb2929;
+}
+.formulario__grupo-null .formulario__input {
+  border: 1.5px solid #bb2929;
+}
+
+#password::placeholder {
+  color: red;
+  font-size: 1em;
+  text-overflow: ellipsis;
+}
+#password::-webkit-input-placeholder {
+  /* WebKit */
+  color: red;
+  font-size: 1em;
+}
+#password::-moz-placeholder {
+  /* Firefox 19+ */
+  color: red;
+  font-size: 1em;
+}
+
+#password2::placeholder {
+  color: red;
+  font-size: 1em;
+  text-overflow: ellipsis;
+}
+#password2::-webkit-input-placeholder {
+  /* WebKit */
+  color: red;
+  font-size: 1em;
+}
+#password2::-moz-placeholder {
+  /* Firefox 19+ */
+  color: red;
+  font-size: 1em;
 }

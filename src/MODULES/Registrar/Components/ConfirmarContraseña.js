@@ -3,33 +3,98 @@ import AvisoError from '../../../BASE/img/aviso-error.png'
 import Ojito from '../../../BASE/img/ojito.png'
 
 const ConfirmarContraseña = () => {
-  // const [inputPassword, setInputPassword] = useState('')
+  // const [inputPassword1, setInputPassword1] = useState('')
+  // const [inputPassword2, setInputPassword2] = useState('')
   const [typeInputPassword, setTypeInputPassword] = useState('password')
-  const [passwordsEquals, setPasswordsEquals] = useState(false)
+  const [typeInputPassword2, setTypeInputPassword2] = useState('password')
+  const [passwordsEquals, setPasswordsEquals] = useState(true)
+  const [password1Null, setPassword1Null] = useState(false)
+  const [password2Null, setPassword2Null] = useState(false)
+  const [checkPasswordsEquals, setCheckPasswordsEquals] = useState(false)
 
-  const capturarValorContraseña = (valor, tipo) => {
-    console.log(valor)
-    // setInputPassword(valor)
-    // setTypeInputPassword(tipo)
-    console.log(setPasswordsEquals)
+  const capturarValorContraseña = () => {
+    const valor1 = document.getElementById('password').value
+    const valor2 = document.getElementById('password2').value
+    // console.log(valor1+' '+valor2)
+
+
+    if (valor1 === valor2 || valor2 === '') {
+      setPasswordsEquals(true)
+    } else {
+      setPasswordsEquals(false)
+    }
+    if (valor1 === valor2 && valor2 !== '') {
+      setCheckPasswordsEquals(true)
+    }
+    if (valor1 === '' || valor2 === '') {
+      setCheckPasswordsEquals(false)
+    }
+    // if (valor1 === '' && valor2 === ''){
+    // }
   }
 
-  const mostrarContraseña = () => {
-    console.log('entré en mostrarContraseña')
+  const placeholder = () => {
+    const valor1 = document.getElementById('password')
+    if(valor1.value === ''){
+      let inputPassword = document.getElementById('password')
+      inputPassword.placeholder = 'Contraseña inválido'
+      // valor1.classList.toggle('formulario__input');
+      setPassword1Null(true)
+    }else{
+      setPassword1Null(false)
+      capturarValorContraseña();
+    }
+  }
+  const placeholder2 = () => {    
+    const valor2 = document.getElementById('password2')
+    if(valor2.value === ''){
+      let inputPassword2 = document.getElementById('password2')
+      inputPassword2.placeholder = 'Contraseña inválido'
+      // valor2.classList.toggle('formulario__input');
+      setPassword2Null(true)
+    }else{
+      setPassword2Null(false)
+      capturarValorContraseña();
+    }
+  }
+
+  const mostrarPrimeraContraseña = () => {
+    console.log('entré en mostrarPrimeraContraseña')
     if (typeInputPassword === 'password') {
-      console.log('entré en la condición SI de mostrarContraseña')
+      console.log('entré en la condición SI de mostrarPrimeraContraseña')
       setTypeInputPassword('text')
     } else {
-      console.log('entré en la condición SINO de mostrarContraseña')
+      console.log('entré en la condición SINO de mostrarPrimeraContraseña')
       setTypeInputPassword('password')
     }
   }
-  console.log(typeInputPassword)
+
+  const mostrarSegundaContraseña = () => {
+    console.log('entré en mostrarSegundaContraseña')
+    if (typeInputPassword2 === 'password') {
+      console.log('entré en la condición SI de mostrarSegundaContraseña')
+      setTypeInputPassword2('text')
+    } else {
+      console.log('entré en la condición SINO de mostrarSegundaContraseña')
+      setTypeInputPassword2('password')
+    }
+  }
+
 
   return (
     <div>
       <div
-        className="formulario__grupo formulario__crearCrearContraseña"
+        className={`formulario__grupo formulario__crearCrearContraseña 
+        ${
+          passwordsEquals
+            ? 'formulario__grupo-correcto'
+            : 'formulario__grupo-incorrecto'
+        }
+        ${
+          password1Null
+            ? 'formulario__grupo-null'
+            : null
+        }`}
         id="grupo__password"
       >
         <label
@@ -46,9 +111,10 @@ const ConfirmarContraseña = () => {
             id="password"
             maxLength="12"
             autoComplete="new-password"
-            onChange={(e) =>
-              capturarValorContraseña(e.target.value, e.target.type)
-            }
+            onChange={(e) => {
+              capturarValorContraseña(e.target.value)
+              placeholder(e.target.value)
+            }}
           />
           <img
             id="ojito1"
@@ -59,13 +125,25 @@ const ConfirmarContraseña = () => {
             }`}
             src={Ojito}
             alt="primerOjito"
-            onClick={() => mostrarContraseña()}
+            onClick={() => mostrarPrimeraContraseña()}
           />
-          <i className="formulario__validacion-estado fas fa-times-circle"></i>
+          {checkPasswordsEquals ? (
+            <i className="formulario__validacion-estado fas fa-check-circle"></i>
+          ) : null}
         </div>
       </div>
       <div
-        className="formulario__grupo formulario__confirmarContraseña"
+        className={`formulario__grupo formulario__confirmarContraseña ${
+          passwordsEquals
+            ? 'formulario__grupo-correcto'
+            : 'formulario__grupo-incorrecto'
+        }
+        ${
+          password2Null
+            ? 'formulario__grupo-null'
+            : null
+        }
+        `}
         id="grupo__password2"
       >
         <label
@@ -76,24 +154,34 @@ const ConfirmarContraseña = () => {
         </label>
         <div className="formulario__grupo-input">
           <input
-            type={typeInputPassword === 'password' ? 'password' : 'text'}
+            type={typeInputPassword2 === 'password' ? 'password' : 'text'}
             className="form-controlPreRegistro marginTop formulario__input"
             name="password2"
             id="password2"
+            onChange={(e) => {
+              capturarValorContraseña(e.target.value)
+              placeholder2(e.target.value)
+            }}
           />
           <img
             id="ojito2"
             className={`ojito2 ${
-              typeInputPassword === 'text'
+              typeInputPassword2 === 'text'
                 ? 'sombraOjoContraseña'
                 : 'quitarSombraOjoContraseña'
             }`}
             src={Ojito}
-            alt=""
-            onClick={() => mostrarContraseña()}
+            alt="Segundo Ojito"
+            onClick={() => mostrarSegundaContraseña()}
           />
-          <i className="formulario__validacion-estado fas fa-times-circle"></i>
+          {checkPasswordsEquals ? (
+            <i className="formulario__validacion-estado fas fa-check-circle"></i>
+          ) : null}
         </div>
+        {/* <button onClick={()=>               
+                validarContraseñasIguales()}>
+          validar contraseña
+        </button> */}
         <span
           className={
             passwordsEquals
