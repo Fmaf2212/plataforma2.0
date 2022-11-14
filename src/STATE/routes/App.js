@@ -7,7 +7,7 @@ import {
   Switch
 } from "react-router-dom";
 
-import Inicio from '../../MODULES/Inicio';
+import Inicio from '../../MODULES/Inicio/Inicio';
 import Comisiones from '../../MODULES/Comisiones';
 import Contacto from '../../MODULES/Contacto/Contacto';
 import Tienda from '../../MODULES/Tienda';
@@ -206,7 +206,6 @@ function App() {
             <i id="sanguche" className="fa fa-bars" aria-hidden="true"></i>
           </div>
         </header>
-        <hr />
         <Switch style={{ marginTop: "80px" }}>
           <Route path="/" exact>
             <Inicio />
