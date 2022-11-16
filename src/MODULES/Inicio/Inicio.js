@@ -2,12 +2,11 @@ import React from 'react';
 // import { TodoProvider } from './Todo/TodoContext';
 // import { AppUI } from './Todo/App/AppUI';
 
-// import Home from '../App/index'
-
 import './inicio.css'
-import PlataformaBanner1 from '../../BASE/img/Plataforma-banner-1.jpg'
-import PlataformaBanner2 from '../../BASE/img/Plataforma-banner-2.jpg'
-import PlataformaBanner3 from '../../BASE/img/Plataforma-banner-3.jpg'
+
+import circuloRed01 from '../../BASE/img/circulo-red-01.png'
+import CircleProgressBar from './CirclePrograssBar/CircleProgressBar';
+import OwlCarousel from './OwlCarouselBloqueInferiorIndex/owlCarousel';
 
 
 const Inicio = () => {
@@ -24,7 +23,15 @@ const Inicio = () => {
                     <p id="txtValorRANGO" className="valorRango">EMPRENDEDOR</p>
                     <p id="txtRANGO" className="descRango">Rango actual</p>
                   </div>
-                  <div className="sectionMiProgreso__porcentaje circleProgressBarPequeño mostrarCircleParaGalaxyFold" style={{ display: "none" }}>
+                  <CircleProgressBar 
+                    divClassName="sectionMiProgreso__porcentaje circleProgressBarPequeño mostrarCircleParaGalaxyFold" 
+                    divStyle={{display: "none"}}
+                    idSvg="valuePercentage2"
+                    dataPercentage="10"
+                    textPercentageY="44%"
+                    pClassName="textoProgresoPorcentajeGalaxyFold"
+                    />
+                  {/* <div className="sectionMiProgreso__porcentaje circleProgressBarPequeño mostrarCircleParaGalaxyFold" style={{ display: "none" }}>
                     <svg id="valuePercentage2" data-percentage="10" className="radial-progress" viewBox="0 0 80 80">
                       <circle className="incomplete" cx="40" cy="40" r="35"></circle>
                       <circle className="complete" cx="40" cy="40" r="35" ></circle>
@@ -33,13 +40,21 @@ const Inicio = () => {
                     <p className="textoProgresoPorcentajeGalaxyFold" >
                       Progreso de Rango Actual
                     </p>
-                  </div>
+                  </div> */}
                   <div className="sectionSiguienteRango">
                     <p className="valorRango">BRONCE</p>
                     <p className="descRango">Siguiente rango</p>
                   </div>
                 </div>
-                <div className="sectionMiProgreso__porcentaje circleProgressBarPequeño ocultarCircleParaGalaxyFold">
+                <CircleProgressBar 
+                    divClassName="sectionMiProgreso__porcentaje circleProgressBarPequeño ocultarCircleParaGalaxyFold"
+                    idSvg="valuePercentage"
+                    dataPercentage="25"
+                    circleComplete = {{strokeDashoffset: "110" }}
+                    textPercentageY="47%"
+                    pClassName="textoProgresoPorcentaje"
+                />
+                {/* <div className="sectionMiProgreso__porcentaje circleProgressBarPequeño ocultarCircleParaGalaxyFold">
                   <svg id="valuePercentage" data-percentage="25" className="radial-progress" viewBox="0 0 80 80">
                     <circle className="incomplete" cx="40" cy="40" r="35"></circle>
                     <circle className="complete" cx="40" cy="40" r="35" style={{ strokeDashoffset: "50" }}></circle>
@@ -48,7 +63,7 @@ const Inicio = () => {
                   <p className="textoProgresoPorcentaje" >
                     Progreso de Rango Actual
                   </p>
-                </div>
+                </div> */}
                 <div className="sectionMiProgreso__porcentaje circleProgressBarGrande">
                   <div className="card__percent">
                     <svg className="circleProgressBarNew">
@@ -98,8 +113,8 @@ const Inicio = () => {
                   <section className="bloqueMiRed__circulos">
                     <article>
                       <div className="articleCirculos__img">
-                        <img src="img/circulo-red-01.png" alt="circuloMiRed" width="150" />
-                        <p id="totalSocios" className="valorCirculo">TOTALSOCIOS </p>
+                        <img src={circuloRed01} alt="circuloMiRed" width="150" />
+                        <p id="totalSocios" className="valorCirculo">1</p>
                       </div>
                       <div className="articleCirculos__nombre">
                         <p>MIS EMPRESARIOS</p>
@@ -107,8 +122,8 @@ const Inicio = () => {
                     </article>
                     <article>
                       <div className="articleCirculos__img">
-                        <img src="img/circulo-red-01.png" alt="circuloMiRed" width="150" />
-                        <p id="activosSocios" className="valorCirculo">ACTIVOS_SOCIOS </p>
+                        <img src={circuloRed01} alt="circuloMiRed" width="150" />
+                        <p id="activosSocios" className="valorCirculo">0</p>
                       </div>
                       <div className="articleCirculos__nombre">
                         <p>EMPRESARIOS ACTIVOS</p>
@@ -116,8 +131,8 @@ const Inicio = () => {
                     </article>
                     <article>
                       <div className="articleCirculos__img">
-                        <img src="img/circulo-red-01.png" alt="circuloMiRed" width="150" />
-                        <p id="nuevosSocios" className="valorCirculo">NUEVOS_SOCIOS </p>
+                        <img src={circuloRed01} alt="circuloMiRed" width="150" />
+                        <p id="nuevosSocios" className="valorCirculo">0</p>
                       </div>
                       <div className="articleCirculos__nombre">
                         <p>NUEVOS ACTIVOS</p>
@@ -125,8 +140,8 @@ const Inicio = () => {
                     </article>
                     <article>
                       <div className="articleCirculos__img">
-                        <img src="img/circulo-red-01.png" alt="circuloMiRed" width="150" />
-                        <p id="inactivosSocios" className="valorCirculo">INACTIVOS_SOCIOS </p>
+                        <img src={circuloRed01} alt="circuloMiRed" width="150" />
+                        <p id="inactivosSocios" className="valorCirculo">1</p>
                       </div>
                       <div className="articleCirculos__nombre">
                         <p>EMPRESARIOS INACTIVOS</p>
@@ -190,15 +205,8 @@ const Inicio = () => {
           </div>
           <div className="w-100"></div>
 
-          <div className="container" style={{ width: "100%", maxWidth: "100vw", padding: "0" }}>
-            <div id="slides" className="slider_div owl-carousel slides">
-              <div className="item">
-                <img src={PlataformaBanner1} alt="" /></div>
-              <div className="item">
-                <img src={PlataformaBanner2} alt="" /></div>
-              <div className="item">
-                <img src={PlataformaBanner3} alt="" /></div>
-            </div>
+          <div className="container" style={{ width: "100%", maxWidth: "100vw", padding: "50px 0" }}>
+            <OwlCarousel />
           </div>
         </div>
 

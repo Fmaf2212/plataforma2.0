@@ -1,23 +1,73 @@
-import React from 'react';
+import React from 'react'
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
-import Inicio from '../../MODULES/Inicio/Inicio';
-import Comisiones from '../../MODULES/Comisiones';
-import Contacto from '../../MODULES/Contacto/Contacto';
-import Tienda from '../../MODULES/Tienda';
-import Footer from '../../MODULES/Footer/Footer';
-import Registrar from '../../MODULES/Registrar/Registrar';
-import './routes.css';
-// import IconUser from "../img/IconUser.png";
-import IconUser from "../../BASE/img/IconUser.png";
+import Inicio from '../../MODULES/Inicio/Inicio'
+import Comisiones from '../../MODULES/Comisiones'
+import Contacto from '../../MODULES/Contacto/Contacto'
+import Tienda from '../../MODULES/Tienda'
+import Footer from '../../MODULES/Footer/Footer'
+import Registrar from '../../MODULES/Registrar/Registrar'
+
+import './routes.css'
+
+import FooterDevice from '../../MODULES/Footer/FooterForDevice/FooterDevice'
+
+import IconUser from '../../BASE/img/IconUser.png'
+import iconInstagram from '../../BASE/img/iconInstagram.png'
+import userMenu from '../../BASE/img/user-menu.png'
+import tiendaMenu from '../../BASE/img/tienda-menu.png'
+import redMenu from '../../BASE/img/red-menu.png'
+import comisionesMenu from '../../BASE/img/comisiones-menu.png'
+import informacionMenu from '../../BASE/img/informacion-menu.png'
+import contactanosMenu from '../../BASE/img/contactanos-menu.png'
+import cerrarSesionBlue from '../../BASE/img/cerrar sesion-blue.png'
 
 function App() {
+  function openUL(e) {
+    // console.log(e);
+    // console.log(e.target);
+    // console.log(e.tagName)
+    if (e.tagName === 'A') {
+      console.log('entré en el elemento enlace')
+      let sumaDeAlturas =
+        e.nextSibling.children[0].clientHeight +
+        e.nextSibling.children[1].clientHeight
+      let siguienteElemento = e.nextSibling;
+      if (siguienteElemento.clientHeight === 0) {
+        siguienteElemento.style.height = `${sumaDeAlturas}px`
+        console.log('entré en === 0')
+      } else {
+        siguienteElemento.style.height = '0px'
+        console.log('entré en else')
+      }
+    } else {
+      console.log('entré en el elemento i flechita')
+      let parentNode  = e.parentNode;
+      let siguienteElemento = parentNode.nextSibling;
+      let sumaDeAlturas =
+        siguienteElemento.children[0].clientHeight +
+        siguienteElemento.children[1].clientHeight;
+      if (siguienteElemento.clientHeight === 0) {
+        siguienteElemento.style.height = `${sumaDeAlturas}px`
+      } else {
+        siguienteElemento.style.height = '0px'
+      }
+    }
+    // console.log(e.children[0].clientHeight);
+    // console.log(e.children[1].clientHeight);
+    // let sumaDeAlturas = e.target.nextSibling.children[0].clientHeight + e.target.nextSibling.children[1].clientHeight;
+    // let siguienteElemento = e.target.nextSibling;
+    // if(siguienteElemento.clientHeight === 0){
+    //   siguienteElemento.style.height = `${sumaDeAlturas}px`;
+    // } else{
+    //   siguienteElemento.style.height = "0px";
+    // }
+    // const ul = document.querySelector('');
+    // const li =
+    // console
+  }
+
   return (
     <Router>
       <div className="container pt-3">
@@ -27,186 +77,580 @@ function App() {
               <img className='imgLogoNavBar' id="imgLogoNavBar" src="https://tienda.mundosantanatura.com/img/LOGO-PARA-BARRA-MOVEDIZA.png" alt="for sell"/>
             </a> */}
             <Link to="/">
-              <img className='imgLogoNavBar' id="imgLogoNavBar" src="https://tienda.mundosantanatura.com/img/LOGO-PARA-BARRA-MOVEDIZA.png" alt="for sell" />
+              <img
+                className="imgLogoNavBar"
+                id="imgLogoNavBar"
+                src="https://tienda.mundosantanatura.com/img/LOGO-PARA-BARRA-MOVEDIZA.png"
+                alt="for sell"
+              />
             </Link>
           </div>
-          <nav id='idMenu' className='menu'>
+          <nav id="idMenu" className="menu">
             <div id="iconCerrar" className="btn">
-              <i id="clickCerrar" className="fa fa-times close-btn"></i>
+              <i
+                onClick={() => {
+                  document.querySelector('.menu').classList.remove('active')
+                }}
+                id="clickCerrar"
+                className="fa fa-times close-btn"
+              ></i>
             </div>
-            <ul className='nav newNavBar-nav navBarNavegadorDesplegado' data-animation="center">
-              <li className="nav-item ocultar navResponsive" id="navUsuario" runat="server" style={{ display: "none" }}>
-                <img src="img/user-menu.png" alt="Alternate Text" />
+            <ul
+              className="nav newNavBar-nav navBarNavegadorDesplegado"
+              data-animation="center"
+            >
+              <li className="nav-item ocultar navResponsive" id="navUsuario">
+                <img src={userMenu} alt="Alternate Text" />
                 <div className="ocultarDatos">
-                  <p id="valorNombreDesplegable" className="claseFuente1 ocultarDatos__parrafo1">NombresCompletos</p>
+                  <p
+                    id="valorNombreDesplegable"
+                    className="claseFuente1 ocultarDatos__parrafo1"
+                  >
+                    NombresCompletos
+                  </p>
                   <p className="ocultarDatos__parrafo2">ID: IDCLIENTE</p>
-                  <a id="idEditarPerfil2" className="claseFuente1 menuEditarPerfil" href="EditarPerfil.aspx">Editar Perfil</a>
+                  <a
+                    id="idEditarPerfil2"
+                    className="claseFuente1 menuEditarPerfil"
+                    href="EditarPerfil.aspx"
+                  >
+                    Editar Perfil
+                  </a>
                 </div>
               </li>
-              <li className="nav-item dropdown submenu menuRegistrarTablet" id="navPreRegistroTablet" runat="server" style={{ display: "none" }}>
-                <a id="idMenuPreRegistroTablet" className=" claseFuente1 enlaceRegistrar" href="PreRegistroSocio.aspx">Registrar</a>
+              <li
+                className="nav-item dropdown submenu menuRegistrarTablet"
+                id="navPreRegistroTablet"
+              >
+                <a
+                  id="idMenuPreRegistroTablet"
+                  className=" claseFuente1 enlaceRegistrar"
+                  href="PreRegistroSocio.aspx"
+                >
+                  Registrar
+                </a>
               </li>
-              <li className="nav-item" id="nav-quienessomos" runat="server" style={{ display: "none" }}>
-                <a id="clicquienessomos" className="claseFuente1" href="PreRegistroSocio.aspx">quienes somos</a>
+              <li
+                className="nav-item"
+                id="nav-quienessomos"
+                style={{ display: 'none' }}
+              >
+                <a
+                  id="clicquienessomos"
+                  className="claseFuente1"
+                  href="PreRegistroSocio.aspx"
+                >
+                  quienes somos
+                </a>
               </li>
-              <li id="idMenuMisComprasNoSocio" className="nav-item" style={{ display: "none" }}>
+              <li
+                id="idMenuMisComprasNoSocio"
+                className="nav-item"
+                style={{ display: 'none' }}
+              >
                 <img src="img/purchase-history.png" alt="Alternate Text" />
-                <a className="fondoNaranjaFocus claseFuente1" href="MisComprasV2.aspx">Historial de Compras</a>
+                <a
+                  className="fondoNaranjaFocus claseFuente1"
+                  href="MisComprasV2.aspx"
+                >
+                  Historial de Compras
+                </a>
               </li>
-              <li className="menu__item borderBottom nav-item dropdown submenu navResponsive" id="navtienda2" runat="server">
-                <img src="img/tienda-menu.png" alt="Alternate Text" />
-                <Link to="/navtienda2" id="idMenuTienda" className="animacionBorderBottom claseFuente1 newNavBarDevice" role="button">Compras<i className="fa fa-angle-down" aria-hidden="true"></i></Link>
+              <li
+                className="menu__item borderBottom nav-item dropdown submenu navResponsive"
+                id="navtienda2"
+                style={{ margin: '0' }}
+                onClick={(e) => openUL(e.target)}
+              >
+                <img src={tiendaMenu} alt="Alternate Text" />
+                <a
+                  href='#navtienda2'
+                  id="idMenuTienda"
+                  className="animacionBorderBottom claseFuente1 newNavBarDevice"
+                  role="button"
+                >
+                  Compras<i className="fa fa-angle-down" aria-hidden="true"></i>
+                </a>
                 {/* <a href="#navtienda2" id="idMenuTienda" className="animacionBorderBottom claseFuente1 newNavBarDevice" role="button">Compras<i className="fa fa-angle-down" aria-hidden="true"></i></a> */}
 
                 <ul className="menu__nesting">
-                  <li id="liTienda" className="nav-item"><Link id="idSubMenuTienda" className="fondoNaranjaFocus  claseFuente1" to="/Tienda">Tienda</Link></li>
-                  <li id="liHistCompras" className="nav-item"><a id="idSubMenuHisCompras" className="fondoNaranjaFocus  claseFuente1" href="MisComprasV2.aspx">Historial de Compras</a></li>
+                  <li id="liTienda" className="nav-item">
+                    <Link
+                      id="idSubMenuTienda"
+                      className="fondoNaranjaFocus  claseFuente1"
+                      to="/Tienda"
+                    >
+                      Tienda
+                    </Link>
+                  </li>
+                  <li id="liHistCompras" className="nav-item">
+                    <a
+                      id="idSubMenuHisCompras"
+                      className="fondoNaranjaFocus  claseFuente1"
+                      href="MisComprasV2.aspx"
+                    >
+                      Historial de Compras
+                    </a>
+                  </li>
                 </ul>
               </li>
-              <li className="menu__item borderBottom nav-item dropdown submenu navResponsive" id="navDesplegable" runat="server">
-                <img src="img/red-menu.png" alt="Alternate Text" />
-                <a href="#navDesplegable" id="idMenuRed" className="animacionBorderBottom claseFuente1 newNavBarDevice" role="button">Red<i className="fa fa-angle-down" aria-hidden="true"></i></a>
-                <ul className="menu__nesting">
-                  <li id="liMapaPatro" className="nav-item"><a id="idSubMenuMapaDePatrocinio" className="fondoNaranjaFocus  claseFuente1" href="MapaDePatrocinio.aspx">Mapa Patrocinio</a></li>
-                  <li id="liMapaRed" className="nav-item"><a id="idSubMenuMapaDeRed" className="fondoNaranjaFocus  claseFuente1" href="MapaRedSocios.aspx">Mapa Red</a></li>
-                  <li id="liTablaCali" className="nav-item"><a id="idSubMenuTablaCalificacion" className="fondoNaranjaFocus  claseFuente1" href="TablaCalificacion.aspx">Tabla de Calificación</a></li>
-                  <li id="liEmprRegis" className="nav-item"><a id="idSubMenuDatosPre" className="fondoNaranjaFocus  claseFuente1" href="CompletarPregistro.aspx">Empresarios Registrados</a></li>
-                  <li id="liEstadisticas" className="nav-item" style={{ display: "none" }}><a id="idSubMenuEstadisticas" className="fondoNaranjaFocus  claseFuente1" href="Estadisticas.aspx">Estadísticas</a></li>
-                  <li id="liTop10" className="nav-item" style={{ display: "none" }}><a id="idSubMenuTop10" className="fondoNaranjaFocus  claseFuente1" href="Top10.aspx">TOP 10</a></li>
-                </ul>
-              </li>
-              <li className="nav-item borderBottom dropdown submenu navResponsive" id="navbonificiones" runat="server">
-                <img src="img/comisiones-menu.png" alt="Alternate Text" />
-                <Link id="clicBonif" className="animacionBorderBottom claseFuente1" to="/Comisiones">Comisiones</Link>
-                <ul className="dropdown-menu" style={{ display: "none" }}>
-                  <li className="nav-item"><a id="idSubMenuContactenos" className=" claseFuente1" href="Contactenos.aspx">Contáctenos</a></li>
-                  <li className="nav-item"><a id="idSubBonificaciones" className=" claseFuente1" href="Bonificaciones.aspx">Bonificaciones</a></li>
-                  <li className="nav-item"><a id="idSubFacturacion" className=" claseFuente1" href="HistorialFacturas.aspx">Facturas</a></li>
-                </ul>
-              </li>
-
-              <li className="menu__item borderBottom nav-item dropdown submenu navResponsive" id="navDocumentos" runat="server">
-                <img src="img/informacion-menu.png" alt="Alternate Text" />
-                <a href="#navDocumentos" id="idMenuDocumentos" className="animacionBorderBottom claseFuente1 newNavBarDevice" role="button">Información<i className="fa fa-angle-down" aria-hidden="true"></i></a>
-                <ul className="menu__nesting">
-                  <li className="nav-item" style={{ display: "none" }}><a id="idSubMenuContactenos" className=" claseFuente1" href="Contactenos.aspx">Contáctenos</a></li>
-                  <li id="liDocu" className="nav-item"><a id="idSubMenuDocume" className="fondoNaranjaFocus claseFuente1" href="Documentos.aspx">Documentos</a></li>
-                  <li id="liPromo" className="nav-item"><a id="idSubMenuPromociones" className="fondoNaranjaFocus claseFuente1" href="Promociones.aspx">Promociones</a></li>
-                  <li className="nav-item"><a id="idSubMenuMarketinheader .menu .borderBottom ag" className=" claseFuente1" href="Marketing.aspx">Materiales</a></li>
-                </ul>
-              </li>
-              <li className="nav-item borderBottom navResponsive" id="navContactenos" runat="server">
-                <img src="img/contactanos-menu.png" alt="Alternate Text" />
-                {/* <a id="idMenuContactenos" className="animacionBorderBottom claseFuente1" href="atc.aspx">Contacto</a> */}
-                <Link id="idMenuContactenos" className="animacionBorderBottom claseFuente1" to="/Contacto">Contacto</Link>
-              </li>
-
-
-
-              <li id="navCerrarSesion" className="menu__item borderBottom nav-item dropdown submenu navResponsive navCerrarSesion">
-                <img src="img/cerrar sesion-blue.png" alt="Alternate Text" />
-                <button runat="server" className="linkCerrarResponsive claseFuente1">Cerrar Sesión</button>
-              </li>
-              <li className="nav-item dropdown submenu menuRegistrar" id="navPreRegistro" runat="server">
-                <Link id="idMenuPreRegistro" className="claseFuente1 enlaceRegistrar" to="/Registrar">Registrar</Link>
-                {/* <a id="idMenuPreRegistro" className=" claseFuente1 enlaceRegistrar" href="PreRegistroSocio.aspx">Registrar</a> */}
-              </li>
-              {/* <img id="imgNavNotify" src="../img/Notificacion.png" alt="Alternate Text" runat="server" /> */}
-              <li className="dropdown submenu navResponsive" id="imgNavNotify" runat="server" style={{ display: "none" }}>
-                <a id="idNavNotify" className="claseFuente1 newNavBarDevice" role="button" href='PreRegistroSocio.aspx'>
-                  <img id="imgNoti" src="../img/Notificacion.png" alt="Alternate Text" runat="server" /></a>
-                <ul className="menu__nesting ul_idNavNotify" id="ul_idNavNotify">
-                  <li></li>
-                  <li></li>
-                </ul>
-              </li>
-
-              <li className="nav-item" id="navlogin" runat="server" style={{ display: "none" }}>
-                <a id="clicLogin" className="iniSesion claseFuente1" href="login.aspx">Iniciar sesión</a>
-              </li>
-              <li className="menu__item borderBottom nav-item dropdown submenu" id="navCerrar" runat="server">
-                <a className=" claseFuente1" role="button" href='/'>
-                  <img className='iconUser' src={IconUser} alt="user" />
-                  {/* <img src="img/user-fondo.png" alt="user" /> */}
+              <li
+                className="menu__item borderBottom nav-item dropdown submenu navResponsive"
+                id="navDesplegable"
+                onClick={(e) => openUL(e.target)}
+              >
+                <img src={redMenu} alt="Alternate Text" />
+                <a
+                  href="#navDesplegable"
+                  id="idMenuRed"
+                  className="animacionBorderBottom claseFuente1 newNavBarDevice"
+                  role="button"
+                >
+                  Red<i className="fa fa-angle-down" aria-hidden="true"></i>
                 </a>
+                <ul className="menu__nesting">
+                  <li id="liMapaPatro" className="nav-item">
+                    <a
+                      id="idSubMenuMapaDePatrocinio"
+                      className="fondoNaranjaFocus  claseFuente1"
+                      href="MapaDePatrocinio.aspx"
+                    >
+                      Mapa Patrocinio
+                    </a>
+                  </li>
+                  <li id="liMapaRed" className="nav-item">
+                    <a
+                      id="idSubMenuMapaDeRed"
+                      className="fondoNaranjaFocus  claseFuente1"
+                      href="MapaRedSocios.aspx"
+                    >
+                      Mapa Red
+                    </a>
+                  </li>
+                  <li id="liTablaCali" className="nav-item">
+                    <a
+                      id="idSubMenuTablaCalificacion"
+                      className="fondoNaranjaFocus  claseFuente1"
+                      href="TablaCalificacion.aspx"
+                    >
+                      Tabla de Calificación
+                    </a>
+                  </li>
+                  <li id="liEmprRegis" className="nav-item">
+                    <a
+                      id="idSubMenuDatosPre"
+                      className="fondoNaranjaFocus  claseFuente1"
+                      href="CompletarPregistro.aspx"
+                    >
+                      Empresarios Registrados
+                    </a>
+                  </li>
+                  <li
+                    id="liEstadisticas"
+                    className="nav-item"
+                    style={{ display: 'none' }}
+                  >
+                    <a
+                      id="idSubMenuEstadisticas"
+                      className="fondoNaranjaFocus  claseFuente1"
+                      href="Estadisticas.aspx"
+                    >
+                      Estadísticas
+                    </a>
+                  </li>
+                  <li
+                    id="liTop10"
+                    className="nav-item"
+                    style={{ display: 'none' }}
+                  >
+                    <a
+                      id="idSubMenuTop10"
+                      className="fondoNaranjaFocus  claseFuente1"
+                      href="Top10.aspx"
+                    >
+                      TOP 10
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                className="nav-item borderBottom dropdown submenu navResponsive"
+                id="navbonificiones"
+                onClick={(e) => openUL(e.target)}
+              >
+                <img src={comisionesMenu} alt="Alternate Text" />
+                <a
+                  id="clicBonif"
+                  className="animacionBorderBottom claseFuente1"
+                  href="#ComisionesMLM2"
+                >
+                  Comisiones
+                  <i className="fa fa-angle-down" aria-hidden="true"></i>
+                </a>
+                <ul className="menu__nesting">
+                  {/* <li class="nav-item"><a id="idSubBonificaciones" class="fondoNaranjaFocus claseFuente1" href="Bonificaciones.aspx">Bonificaciones</a></li>
+                  <li class="nav-item"><a id="idSubFacturacion" class=" claseFuente1" href="HistorialFacturas.aspx" style="color: white;">Facturas</a></li>
+                  <li class="nav-item"><a id="idSubComisionesMLM" class="fondoNaranjaFocus claseFuente1" href="ComisionesMLM.aspx">Comisiones MLM</a></li>
+                  <li class="nav-item"><a id="idSubComisionesMLM2" class="fondoNaranjaFocus claseFuente1" href="ComisionesMLM2.aspx">Comisiones MLM 2</a></li> */}
+                </ul>
+              </li>
+
+              <li
+                className="nav-item borderBottom"
+                id="nav-sistemaeducativo"
+                style={{ display: 'none' }}
+              >
+                <Link
+                  id="clicSistEdu"
+                  className=" claseFuente1"
+                  to="/"
+                  style={{ fontSize: '16px' }}
+                >
+                  Sistema Educativo
+                </Link>
+              </li>
+
+              <li
+                className="menu__item borderBottom nav-item dropdown submenu navResponsive"
+                id="navDocumentos"
+                onClick={(e) => openUL(e.target)}
+              >
+                <img src={informacionMenu} alt="informacion-menu" />
+                <a
+                  href="#navDocumentos"
+                  id="idMenuDocumentos"
+                  className="animacionBorderBottom claseFuente1 newNavBarDevice"
+                  role="button"
+                  style={{ fontSize: '14px' }}
+                >
+                  Información
+                  <i className="fa fa-angle-down" aria-hidden="true"></i>
+                </a>
+                <ul className="menu__nesting" style={{ width: '150%' }}>
+                  {/* <li className="nav-item"><Link id="idSubMenuContactenos" className=" claseFuente1" href="Contactenos.aspx">Contáctenos</Link></li> */}
+                  <li id="liDocu" className="nav-item">
+                    <Link
+                      id="idSubMenuDocume"
+                      className="fondoNaranjaFocus claseFuente1"
+                      to="/Documentos"
+                    >
+                      Documentos
+                    </Link>
+                  </li>
+                  <li id="liPromo" className="nav-item">
+                    <Link
+                      id="idSubMenuPromociones"
+                      className="fondoNaranjaFocus claseFuente1"
+                      to="/Promociones"
+                    >
+                      Promociones
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      id="idSubMenuMarketinheader .menu .borderBottom ag"
+                      className=" claseFuente1"
+                      to="/Marketing"
+                    >
+                      Materiales
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li
+                className="nav-item borderBottom navResponsive"
+                id="navContactenos"
+              >
+                <img src={contactanosMenu} alt="contactanos-menu" />
+                <Link
+                  id="idMenuContactenos"
+                  className="animacionBorderBottom claseFuente1"
+                  to="/atc"
+                  style={{ fontSize: '14px' }}
+                >
+                  Contacto
+                </Link>
+              </li>
+
+              <li
+                className="nav-item borderBottom navResponsive"
+                style={{ display: 'none' }}
+                id="navSeguros"
+              >
+                <img src={contactanosMenu} alt="contactanos-menu" />
+                <Link
+                  id="idMenuSeguros"
+                  className="animacionBorderBottom claseFuente1"
+                  to="/Seguros"
+                  style={{ fontSize: '14px' }}
+                >
+                  Contacto
+                </Link>
+              </li>
+
+              <li
+                id="navCerrarSesion"
+                className="menu__item borderBottom nav-item dropdown submenu navResponsive navCerrarSesion"
+              >
+                <img src={cerrarSesionBlue} alt="cerrar sesion-blue" />
+                <Link
+                  className="linkCerrarResponsive claseFuente1"
+                  style={{ fontSize: '14px' }}
+                  to="/"
+                >
+                  Cerrar Sesión
+                </Link>
+              </li>
+              <li
+                className="nav-item dropdown submenu menuRegistrar"
+                id="navPreRegistro"
+                style={{ display: 'none' }}
+              >
+                <Link
+                  id="idMenuPreRegistro"
+                  className="claseFuente1 enlaceRegistrar"
+                  to="/PreRegistroSocio"
+                >
+                  Registrar
+                </Link>
+              </li>
+              {/* <li
+                className="dropdown submenu navResponsive"
+                id="imgNavNotify"
+                style={{ display: 'none' }}
+              >
+                <Link
+                  id="idNavNotify"
+                  className="claseFuente1 newNavBarDevice"
+                  role="button"
+                  to="/"
+                >
+                  <img
+                    id="idNavNotify"
+                    src="../img/Notificacion.png"
+                    alt="Notificacion"
+                  />
+                </Link>
+                <ul
+                  className="menu__nesting ul_idNavNotify"
+                  id="ul_idNavNotify"
+                  style={{
+                    backgroundColor: '#F6F6F6',
+                    width: '370px',
+                    height: '430px',
+                    left: 'auto',
+                    right: '-60px',
+                    borderRadius: '7px',
+                    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                    bottom: '-25px',
+                  }}
+                >
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li> */}
+
+              <li
+                className="nav-item"
+                id="navlogin"
+                style={{ display: 'none' }}
+              >
+                <Link
+                  id="clicLogin"
+                  className="iniSesion claseFuente1"
+                  to="/Login"
+                >
+                  Iniciar sesión
+                </Link>
+              </li>
+              <li
+                className="menu__item borderBottom nav-item dropdown submenu"
+                id="navCerrar"
+              >
+                <Link
+                  className=" claseFuente1"
+                  role="button"
+                  to="/"
+                  style={{
+                    fontSize: '14px',
+                    borderBottom: 'none',
+                    padding: '0',
+                    textAlign: 'center',
+                  }}
+                >
+                  <img style={{ width: '44px' }} src={IconUser} alt="user" />
+                  {/* <img src="img/user-fondo.png" alt="user" /> */}
+                </Link>
                 <ul className="menu__nesting menu__nestingCerrar">
-                  <li className="ocultar">
-                    <div>
-                      <img className="imgUser" src="img/IconUser.png" alt="user" />
+                  <li style={{ borderBottom: 'none' }} className="ocultar">
+                    <div
+                      style={{
+                        marginBottom: '10px',
+                        position: 'relative',
+                        height: '86px',
+                        width: '86px',
+                        margin: 'auto',
+                      }}
+                    >
+                      <img
+                        className="imgUser"
+                        src="img/IconUser.png"
+                        alt="user"
+                      />
                     </div>
                   </li>
-                  <li className="nav-item"><a className=" claseFuente1" id="logout" runat="server" href='/'>cerrar sesión</a></li>
-                  <li className="nav-item ocultar" id="navUsuario2" runat="server">
-                    <p id="valorNombre" className="claseFuente1">NombresCompletos</p>
-                    <p>ID: IDCLIENTE</p>
+                  <li
+                    className="nav-item ocultar"
+                    id="navUsuario2"
+                    style={{ borderBottom: '1px solid white' }}
+                  >
+                    <p
+                      id="valorNombre"
+                      className="claseFuente1"
+                      style={{
+                        color: 'white',
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                        fontSize: '14px',
+                        margin: '10px 0 0',
+                      }}
+                    >
+                      NombresCompletos
+                    </p>
+                    <p
+                      style={{
+                        color: 'white',
+                        textAlign: 'center',
+                        fontSize: '14px',
+                        margin: '10px 0 0',
+                      }}
+                    >
+                      ID: IDCLIENTE
+                    </p>
                   </li>
-                  <li className="nav-item subMenuCerrar" id="navPerfil" runat="server">
-                    <a id="idEditarPerfil" className="claseFuente1 menuEditarPerfil" href="EditarPerfil.aspx">Editar Perfil</a>
+                  <li
+                    className="nav-item subMenuCerrar"
+                    id="navPerfil"
+                    style={{ display: 'none' }}
+                  >
+                    <Link
+                      id="idEditarPerfil"
+                      className="claseFuente1 menuEditarPerfil"
+                      to="/EditarPerfil"
+                    >
+                      Editar Perfil
+                    </Link>
                   </li>
                   <li className="nav-item subMenuCerrar">
-                    <button runat="server" className="linkCerrar claseFuente1">Cerrar Sesión</button>
+                    <button className="linkCerrar claseFuente1">
+                      Cerrar Sesión
+                    </button>
                   </li>
                 </ul>
-                {/* <ul className="dropdown-menu-user hover"> style="right: 0px; left: -150px; border-radius: 7px; top: 100%; background-color: rgba(255,255,255,.8);">
-                                    <li className="nav-item" id="Li1" runat="server">
-                                        <p className="claseFuente1" style="color: black; text-align: center; font-weight: bold; margin: 5px;"><%=NombresCompletos%></p>
-                                        <p style="color: black; text-align: center; margin: 0 0 5px;">ID: 73011583</p>
-                                    </li>
-                                </ul> */}
               </li>
 
               <li id="footerResponsive" className="footerResponsive">
-                <div>
-                  <div className="footer_widgets" >
+                <div
+                  style={{
+                    position: 'relative',
+                    zIndex: '100',
+                    width: '95%',
+                    margin: 'auto',
+                  }}
+                >
+                  <div
+                    className="footer_widgets"
+                    style={{
+                      borderTop: 'none',
+                      borderBottom: '0',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gridGap: '40px',
+                      padding: '16px 0 29px',
+                    }}
+                  >
                     <div>
-                      <aside className="f_about_widget">
+                      <aside
+                        className="f_about_widget"
+                        style={{ marginBottom: '-45px' }}
+                      >
                         <div>
-                          <img width="193" id="imgLogoFooter" src="https://tienda.mundosantanatura.com/img/logo-01.png" alt="" />
+                          <img
+                            style={{ width: '193px' }}
+                            id="imgLogoFooter"
+                            src="https://tienda.mundosantanatura.com/img/logo-01.png"
+                            alt=""
+                          />
                         </div>
-                        <p >"Porque vivir bien está en nuestras raíces"</p>
-                        <ul >
-                          <li id="facebook"><a href="/" ><i className="social_facebook"></i></a></li>
-                          <li id="twitter"><a href="/" ><i className="social_twitter"></i></a></li>
-                          <li ><a href="/"><i className="social_youtube"></i></a></li>
-                          <li ><a href="/">
-                            <img className="social_instagram" src="img/iconInstagram.png" alt="iconInstagram" /></a>
+                        <p
+                          style={{
+                            marginTop: '-35px',
+                            fontSize: '13px',
+                            color: 'white',
+                            padding: '30px 0 0 0',
+                          }}
+                        >
+                          "Porque vivir bien está en nuestras raíces"
+                        </p>
+                        <ul>
+                          <li id="facebook">
+                            <Link to="/">
+                              <i className="social_facebook"></i>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to="/">
+                              <i className="social_youtube"></i>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to="/">
+                              <img
+                                className="social_instagram"
+                                src={iconInstagram}
+                                alt="iconInstagram"
+                              />
+                            </Link>
                           </li>
                         </ul>
                       </aside>
                     </div>
                     <div className="text-center">
-                      <span>Esta tienda está autorizada por Visa para realizar transacciones electrónicas.</span>
+                      <span style={{ fontSize: '14px', color: 'white' }}>
+                        Esta tienda está autorizada por Visa para realizar
+                        transacciones electrónicas.
+                      </span>
                     </div>
                   </div>
                   <div className="linea"></div>
-                  <div className="footer_copyright">
+                  <div
+                    className="footer_copyright"
+                    style={{ padding: '21px 0 22px' }}
+                  >
                     <p className="copyright">
                       ©
                       <script>document.write(new Date().getFullYear());</script>
-                      Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                      Copyright &copy;
+                      <script>document.write(new Date().getFullYear());</script>
                       All rights reserved
                     </p>
                   </div>
                 </div>
               </li>
-
-
-              {/* <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/Contacto">About</Link>
-              </li>
-              <li>
-                <Link to="/Nosotros">Users</Link>
-              </li> */}
             </ul>
           </nav>
           <div className="btn menu__hamburguer">
-            <i id="sanguche" className="fa fa-bars" aria-hidden="true"></i>
+            <i
+              onClick={() => {
+                document.querySelector('.menu').classList.add('active')
+              }}
+              id="sanguche"
+              className="fa fa-bars"
+              aria-hidden="true"
+            ></i>
           </div>
         </header>
-        <Switch style={{ marginTop: "80px" }}>
+        <Switch style={{ marginTop: '80px' }}>
           <Route path="/" exact>
             <Inicio />
           </Route>
@@ -224,16 +668,12 @@ function App() {
           </Route>
         </Switch>
 
-        <Footer />
+        <FooterDevice />
 
-        {/* <Routes>
-          <Route path="/" element={<Inicio/>} />
-          <Route path="/Contacto" element={<Contacto/>} />
-          <Route path="/Nosotros" element={<Nosotros/>} />
-        </Routes> */}
+        <Footer />
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,0 +1,71 @@
+:root {
+  --Dark-primary: #1b2c5e;
+  --Medium-primary: #2d4a9d;
+}
+
+svg.radial-progress {
+  height: auto;
+  max-width: 203px;
+  transform: rotate(-90deg);
+  width: 100%;
+}
+
+svg.radial-progress circle {
+  fill: rgba(0, 0, 0, 0);
+  stroke: #fff;
+  stroke-dashoffset: 219.91148575129;
+  stroke-width: 10;
+}
+
+svg.radial-progress circle.incomplete {
+  opacity: 0.05;
+}
+
+svg.radial-progress circle.complete {
+  stroke-dasharray: 219.91148575129;
+}
+
+svg.radial-progress text {
+  fill: var(--Medium-primary);
+  font: 400 1em/1 'Oswald', sans-serif;
+  text-anchor: middle;
+}
+
+svg.radial-progress:nth-of-type(6n + 1) circle {
+  stroke: var(--Light-primary);
+}
+
+svg.radial-progress:nth-of-type(6n + 2) circle {
+  stroke: #83e4e2;
+}
+
+svg.radial-progress:nth-of-type(6n + 3) circle {
+  stroke: #fd6470;
+}
+
+svg.radial-progress:nth-of-type(6n + 4) circle {
+  stroke: #fca858;
+}
+
+svg.radial-progress:nth-of-type(6n + 5) circle {
+  stroke: #fddc32;
+}
+
+@media (max-width: 767px) and (min-width: 500px) {
+  svg.radial-progress {
+    max-width: 160px;
+  }
+  svg.radial-progress circle {
+    stroke-width: 8px;
+  }
+}
+
+@media (max-device-width: 499px){
+    .circleProgressBarPequeño {
+        display: flex;
+    }
+    
+  svg.radial-progress {
+    max-width: 108px;
+  }
+}
