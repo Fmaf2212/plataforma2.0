@@ -25,48 +25,115 @@ import cerrarSesionBlue from '../../BASE/img/cerrar sesion-blue.png'
 
 function App() {
   function openUL(e) {
-    // console.log(e);
-    // console.log(e.target);
-    // console.log(e.tagName)
-    if (e.tagName === 'A') {
-      console.log('entré en el elemento enlace')
+    if (e.nextSibling) {
+      console.log('hola')
+    }
+    if (e.tagName === 'A' && e.nextSibling.children[0] && e.tagName !== 'I') {
       let sumaDeAlturas =
         e.nextSibling.children[0].clientHeight +
         e.nextSibling.children[1].clientHeight
-      let siguienteElemento = e.nextSibling;
-      if (siguienteElemento.clientHeight === 0) {
-        siguienteElemento.style.height = `${sumaDeAlturas}px`
-        console.log('entré en === 0')
+      let elementoUl = e.nextSibling
+      if (elementoUl.clientHeight === 0) {
+        elementoUl.style.height = `${sumaDeAlturas}px`
+        if (e.style.length === 0) {
+          //si style.length vale 2 es porque tiene 2 estilos, si vale 0 es porque no tiene estilos el elemento.
+        } else {
+          e.removeAttribute('style')
+          e.parentNode.firstChild.removeAttribute('style')
+          e.lastChild.removeAttribute('style')
+        }
       } else {
-        siguienteElemento.style.height = '0px'
-        console.log('entré en else')
+        elementoUl.style.height = '0px'
+        e.style.setProperty('color', 'rgb(33, 33, 33)', 'important')
+        e.style.backgroundColor = 'white'
+        e.parentNode.firstChild.style.setProperty('filter', 'none')
+        e.lastChild.style.setProperty('color', 'rgb(21, 50, 133)', 'important')
       }
-    } else {
-      console.log('entré en el elemento i flechita')
-      let parentNode  = e.parentNode;
-      let siguienteElemento = parentNode.nextSibling;
+      /* ---------------------------------------- */
+    }
+    if (e.tagName === 'IMG') {
+      //Dar altura al elemento ul, en caso ya tenga altura colocarle de valor 0.
       let sumaDeAlturas =
-        siguienteElemento.children[0].clientHeight +
-        siguienteElemento.children[1].clientHeight;
-      if (siguienteElemento.clientHeight === 0) {
-        siguienteElemento.style.height = `${sumaDeAlturas}px`
+        e.nextSibling.nextSibling.children[0].clientHeight +
+        e.nextSibling.nextSibling.children[1].clientHeight
+      let elementoUl = e.nextSibling.nextSibling
+      // e.target.style.setProperty('max-height', '192px')
+      if (elementoUl.clientHeight === 0) {
+        elementoUl.style.height = `${sumaDeAlturas}px`
       } else {
-        siguienteElemento.style.height = '0px'
+        elementoUl.style.height = '0px'
+      }
+      /* ---------------------------------------- */
+      if (e.style.length === 0) {
+        //si style.length vale 2 es porque tiene 2 estilos, si vale 0 es porque no tiene estilos el elemento.
+        e.style.setProperty('filter', 'none')
+        e.nextSibling.style.setProperty('color', 'rgb(33, 33, 33)', 'important')
+        e.nextSibling.style.backgroundColor = 'white'
+        e.nextSibling.lastChild.style.setProperty(
+          'color',
+          'rgb(21, 50, 133)',
+          'important',
+        )
+      } else {
+        e.removeAttribute('style')
+        e.nextSibling.removeAttribute('style')
+        e.nextSibling.lastChild.removeAttribute('style')
       }
     }
-    // console.log(e.children[0].clientHeight);
-    // console.log(e.children[1].clientHeight);
-    // let sumaDeAlturas = e.target.nextSibling.children[0].clientHeight + e.target.nextSibling.children[1].clientHeight;
-    // let siguienteElemento = e.target.nextSibling;
-    // if(siguienteElemento.clientHeight === 0){
-    //   siguienteElemento.style.height = `${sumaDeAlturas}px`;
-    // } else{
-    //   siguienteElemento.style.height = "0px";
-    // }
-    // const ul = document.querySelector('');
-    // const li =
-    // console
+    if (e.tagName === 'I') {
+      //Dar altura al elemento ul, en caso ya tenga altura colocarle de valor 0.
+      let sumaDeAlturas =
+        e.parentNode.nextSibling.children[0].clientHeight +
+        e.parentNode.nextSibling.children[1].clientHeight
+      let elementoUl = e.parentNode.nextSibling
+      if (elementoUl.clientHeight === 0) {
+        elementoUl.style.height = `${sumaDeAlturas}px`
+      } else {
+        elementoUl.style.height = '0px'
+      }
+      /* ---------------------------------------- */
+      if (e.style.length === 0) {
+        //si style.length vale 2 es porque tiene 2 estilos, si vale 0 es porque no tiene estilos el elemento.
+        e.style.setProperty('color', 'rgb(21, 50, 133)', 'important')
+        e.parentNode.parentNode.firstChild.style.setProperty('filter', 'none')
+        e.parentNode.style.setProperty('color', 'rgb(33, 33, 33)', 'important')
+        e.parentNode.style.backgroundColor = 'white'
+      } else {
+        e.removeAttribute('style')
+        e.parentNode.parentNode.firstChild.removeAttribute('style')
+        e.parentNode.removeAttribute('style')
+      }
+    } 
   }
+
+  function openNav(){
+    document.querySelector('.menu').classList.add('active')
+    document.getElementById('modalGeneral').style.display = 'block';
+    document.querySelector('header').style.backgroundColor = '#040A1B';
+    document.querySelector('body').style.overflowY = 'hidden';
+  }
+  function closeNav(){
+    document.querySelector('.menu').classList.remove('active')
+    document.getElementById('modalGeneral').style.display = 'none';
+    document.querySelector('header').removeAttribute('style');
+    document.querySelector('body').removeAttribute('style');
+  }
+  function windowReSize() {
+    // console.log(window.innerWidth)
+    if(window.innerWidth > 1148){
+      document.querySelector('.menu').classList.remove('active')
+      document.getElementById('modalGeneral').style.display = 'none';
+      document.querySelector('header').removeAttribute('style');
+      document.querySelector('body').removeAttribute('style');
+      let quitarEstilosEnlance = document.querySelectorAll('ul.navBarNavegadorDesplegado > li > a');
+      // console.log(quitarEstilosEnlance)
+      quitarEstilosEnlance.forEach(e => {
+        e.removeAttribute('style');
+      });
+    }
+  }
+  
+  window.onresize = windowReSize;
 
   return (
     <Router>
@@ -88,9 +155,7 @@ function App() {
           <nav id="idMenu" className="menu">
             <div id="iconCerrar" className="btn">
               <i
-                onClick={() => {
-                  document.querySelector('.menu').classList.remove('active')
-                }}
+                onClick={() => closeNav()}
                 id="clickCerrar"
                 className="fa fa-times close-btn"
               ></i>
@@ -121,6 +186,7 @@ function App() {
               <li
                 className="nav-item dropdown submenu menuRegistrarTablet"
                 id="navPreRegistroTablet"
+                style={{display: 'none'}}
               >
                 <a
                   id="idMenuPreRegistroTablet"
@@ -164,7 +230,7 @@ function App() {
               >
                 <img src={tiendaMenu} alt="Alternate Text" />
                 <a
-                  href='#navtienda2'
+                  href="#navtienda2"
                   id="idMenuTienda"
                   className="animacionBorderBottom claseFuente1 newNavBarDevice"
                   role="button"
@@ -276,16 +342,16 @@ function App() {
               <li
                 className="nav-item borderBottom dropdown submenu navResponsive"
                 id="navbonificiones"
-                onClick={(e) => openUL(e.target)}
               >
                 <img src={comisionesMenu} alt="Alternate Text" />
                 <a
                   id="clicBonif"
                   className="animacionBorderBottom claseFuente1"
                   href="#ComisionesMLM2"
+                  role="button"
                 >
                   Comisiones
-                  <i className="fa fa-angle-down" aria-hidden="true"></i>
+                  {/* <i className="fa fa-angle-down" aria-hidden="true"></i> */}
                 </a>
                 <ul className="menu__nesting">
                   {/* <li class="nav-item"><a id="idSubBonificaciones" class="fondoNaranjaFocus claseFuente1" href="Bonificaciones.aspx">Bonificaciones</a></li>
@@ -404,7 +470,6 @@ function App() {
               <li
                 className="nav-item dropdown submenu menuRegistrar"
                 id="navPreRegistro"
-                style={{ display: 'none' }}
               >
                 <Link
                   id="idMenuPreRegistro"
@@ -641,15 +706,16 @@ function App() {
           </nav>
           <div className="btn menu__hamburguer">
             <i
-              onClick={() => {
-                document.querySelector('.menu').classList.add('active')
-              }}
+              onClick={() => openNav()}
               id="sanguche"
               className="fa fa-bars"
               aria-hidden="true"
             ></i>
           </div>
         </header>
+        <div runat="server" id="modalGeneral" style={{display: "none"}}>
+          <div id="popup" className="popup"></div>
+        </div>
         <Switch style={{ marginTop: '80px' }}>
           <Route path="/" exact>
             <Inicio />

@@ -21,6 +21,7 @@ let idMenu = document.getElementById('idMenu');
 let sanguche = document.getElementById('sanguche');
 sanguche.onclick = muestraAlerta;
 function muestraAlerta(evento) {
+    console.log('entré en dar click sanguche')
     document.getElementById("header").style.zIndex = "10000000000";
     document.getElementById("header").style.background = "rgb(4,10,27)";
     document.getElementById("modalGeneral").style.display = "block";
