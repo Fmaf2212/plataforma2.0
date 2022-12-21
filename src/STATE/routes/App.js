@@ -62,7 +62,7 @@ function App() {
         elementoUl.style.height = `${sumaDeAlturas}px`
       } else {
         elementoUl.style.height = '0px'
-      }
+      } 
       /* ---------------------------------------- */
       if (e.style.length === 0) {
         //si style.length vale 2 es porque tiene 2 estilos, si vale 0 es porque no tiene estilos el elemento.
